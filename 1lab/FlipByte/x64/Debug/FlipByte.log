@@ -1,0 +1,3 @@
+﻿  FlipByte.cpp
+C:\Users\Rebace\source\repos\FlipByte\FlipByte.cpp(8,19): warning C4018: <: несоответствие типов со знаком и без знака
+  FlipByte.vcxproj -> C:\Users\Rebace\source\repos\FindText\x64\Debug\FlipByte.exe

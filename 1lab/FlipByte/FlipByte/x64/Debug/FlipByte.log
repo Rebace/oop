@@ -1,0 +1,24 @@
+﻿  FlipByte.cpp
+C:\Users\Rebace\Desktop\oop\1lab\FlipByte\FlipByte\FlipByte.cpp(39,18): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  FlipByte.vcxproj -> C:\Users\Rebace\Desktop\oop\1lab\FlipByte\x64\Debug\FlipByte.exe
+  Сравнение файлов out1.txt и C:\USERS\REBACE\APPDATA\LOCAL\TEMP/OUT.TXT
+  FC: различия не найдены
+  
+  Test 1 passed
+  Сравнение файлов out2.txt и C:\USERS\REBACE\APPDATA\LOCAL\TEMP/OUT.TXT
+  FC: различия не найдены
+  
+  Test 2 passed
+  Сравнение файлов out3.txt и C:\USERS\REBACE\APPDATA\LOCAL\TEMP/OUT.TXT
+  FC: различия не найдены
+  
+  Test 3 passed
+  Сравнение файлов out4.txt и C:\USERS\REBACE\APPDATA\LOCAL\TEMP/OUT.TXT
+  FC: различия не найдены
+  
+  Test 4 passed
+  Test 5 passed
+  Test 6 passed
+  Test 7 passed
+  Test 8 passed
+  All tested passed

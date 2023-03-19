@@ -1,41 +1,68 @@
 ﻿#include <iostream>
 #include <string>
+#include <optional>
 
 using namespace std;
 
-int Reverse(int b)
+int Reverse(int num)
 {
-    int a = 0;
-    for (int i = 0; i < 8; i++)
-        if ((b & (1 << i)) != 0)
-            a |= 1 << (7 - i);
-    return a;
+    num = ((num & 0b00001111) << 4) | ((num & 0b11110000) >> 4);
+    num = ((num & 0b00110011) << 2) | ((num & 0b11001100) >> 2);
+    num = ((num & 0b01010101) << 1) | ((num & 0b10101010) >> 1);
+
+    return num;
 }
 
-int main(int argc, char* argv[])
+optional<string> GetByte(int argc, char** argv)
 {
     if (argc != 2)
     {
         cout << "Invalid arguments count" << endl;
+        cout << "Usage: FlipByte.exe <byte for reverse>" << endl;
+        return nullopt;
+    }
+
+    return argv[1];
+}
+
+int main(int argc, char* argv[])
+{
+    auto const byte = GetByte(argc, argv);
+    if (!byte)
+    {
         return 1;
     }
 
-    int byte;
     try
     {
-        byte = stoi(argv[1]);
+        double b = stod(byte.value());
+        int byte = b;
+
+        if ((b < 0) || (b > 255))
+        {
+            throw -1;
+        }
+
+        if (b - byte > 0)
+        {
+            throw 1.1;
+        }
+
+        cout << Reverse(byte) << endl;
     }
-    catch (const std::exception&)
+    catch (invalid_argument e)
     {
         cout << "The argument is not a number" << endl;
         return 1;
     }
-
-    if ((byte < 0) || (byte > 255))
+    catch (int)
     {
         cout << "The argument does not consist of a single byte" << endl;
         return 1;
     }
-
-    cout << Reverse(byte) << endl;
+    catch (double)
+    {
+        cout << "Not a int number" << endl;
+        return 1;
+    } 
 }

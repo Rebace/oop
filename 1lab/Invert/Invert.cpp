@@ -1,13 +1,16 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <regex>
+#include <climits>
+#include <optional>
 
 using namespace std;
 
 using Matrix3x3 = double[3][3];
 using Matrix2x2 = double[2][2];
 
-int CountingDeterminantMatrix2x2(Matrix3x3 matrix, int elemLineNumber, int elemColumnNumber)
+double CountingDeterminantMatrix2x2(Matrix3x3 matrix, int elemLineNumber, int elemColumnNumber)
 {
     Matrix2x2 matrix2x2;
     size_t line2x2 = 0;
@@ -55,10 +58,10 @@ bool invertingMatrix(Matrix3x3 matrix, Matrix3x3 invertMatrix)
     double det = 0;
 
     det = CountingDeterminantMatrix3x3(matrix);
-
+    
     if (det == 0)
     {
-        return 1;
+        return false;
     }
 
     for (size_t line = 0; line < 3; ++line)
@@ -72,26 +75,34 @@ bool invertingMatrix(Matrix3x3 matrix, Matrix3x3 invertMatrix)
             }
         }
     }
-    return 0;
+    return true;
 }
 
-bool ReadMatrixFromFile(ifstream& file, Matrix3x3& matrix)
+bool ReadMatrixFromFile(const string& fileName, Matrix3x3& matrix)
 {
+    ifstream fileIn;
+    fileIn.open(fileName);
+
+    if (!fileIn.is_open())
+    {
+        return false;
+    }
+
     for (size_t line = 0; line < 3; ++line)
     {
         for (size_t column = 0; column < 3; ++column)
         {
-            if (!(file >> matrix[line][column]))
+            if (!(fileIn >> matrix[line][column]))
             {
-                return true;
+                return false;
             }
         }
     }
-    return false;
+    return true;
 }
 
 void PrintMatrix(Matrix3x3 matrix)
-{
+{ 
     for (size_t line = 0; line < 3; ++line)
     {
         for (size_t column = 0; column < 3; ++column)
@@ -102,32 +113,39 @@ void PrintMatrix(Matrix3x3 matrix)
     }
 }
 
-int main(int argc, char* argv[])
+optional<string> GetMatrixFilename(int argc, char** argv)
 {
     if (argc != 2)
     {
         cout << "Invalid arguments count" << endl;
-        return 1;
+        cout << "Usage: Invert.exe <matrix file name>" << endl;
+        return nullopt;
     }
 
-    ifstream fileIn;
-    fileIn.open(argv[1]);
+    return argv[1];
+}
 
-    if (!fileIn.is_open())
+int main(int argc, char* argv[])
+{
+    auto const matrixFilename = GetMatrixFilename(argc, argv);
+    if (!matrixFilename)
     {
-        cout << "Failed to open" << endl;
         return 1;
     }
 
     Matrix3x3 matrix;
-    if (ReadMatrixFromFile(fileIn, matrix))
+    if (!ReadMatrixFromFile(matrixFilename.value(), matrix))
     {
-        cout << "Input matrix error" << endl;
+        cout << "Error with reading matrix" << endl;
         return 1;
     }
 
     Matrix3x3 ivertMatrix;
-    invertingMatrix(matrix, ivertMatrix);
+    if (!invertingMatrix(matrix, ivertMatrix))
+    {
+        cout << "Matrix can not be inverted" << endl;
+        return 1;
+    }
 
     PrintMatrix(ivertMatrix);
 }

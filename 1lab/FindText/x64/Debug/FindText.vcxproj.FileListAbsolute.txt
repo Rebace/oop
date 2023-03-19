@@ -1,0 +1,4 @@
+C:\Users\Rebace\source\repos\FindText\x64\Debug\FindText.exe
+D:\PS1\oop\1lab\FindText\x64\Debug\FindText.exe
+D:\PS1\oop\1lab\FindText\x64\Debug\FindText.pdb
+C:\Users\Rebace\Desktop\oop\1lab\FindText\x64\Debug\FindText.exe

@@ -1,0 +1,4 @@
+C:\Users\Rebace\source\repos\Invert\x64\Debug\Invert.exe
+C:\Users\Rebace\Desktop\oop\1lab\Invert\x64\Debug\Invert.exe
+D:\PS1\oop\1lab\Invert\x64\Debug\Invert.exe
+D:\PS1\oop\1lab\Invert\x64\Debug\Invert.pdb

@@ -13,10 +13,32 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\tests">
+      <UniqueIdentifier>{3f816b09-0c1c-407f-b74f-946ad7b5a340}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Invert.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tests.bat">
+      <Filter>Исходные файлы</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test1.txt">
+      <Filter>Исходные файлы\tests</Filter>
+    </Text>
+    <Text Include="test2.txt">
+      <Filter>Исходные файлы\tests</Filter>
+    </Text>
+    <Text Include="out2.txt">
+      <Filter>Исходные файлы\tests</Filter>
+    </Text>
+    <Text Include="test3.txt">
+      <Filter>Исходные файлы\tests</Filter>
+    </Text>
   </ItemGroup>
 </Project>

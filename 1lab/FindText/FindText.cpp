@@ -1,48 +1,89 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <string>
+#include <optional>
 
 using namespace std;
 
-bool FindStingInStream(istream& haystack, const string& needle)
+struct Args
+{
+    string inputFileName;
+    string word;
+};
+
+optional<Args> ParseArgs(int argc, char* argv[])
+{
+    if (argc != 3)
+    {
+        cout << "Invalid arguments count" << endl;
+        cout << "Usage: FindText.exe <input file name> <search word>" << endl;
+        return nullopt;
+    }
+
+    Args args;
+    args.inputFileName = argv[1];
+    args.word = argv[2];
+
+    return args;
+}
+
+bool InitializeFile(ifstream& fileIn, const string& filename)
+{
+    fileIn.open(filename);
+    if (!fileIn.is_open())
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool FindStringInStreamAndPrint(istream& input, const string& word)
 {
     bool found = false;
     string line;
 
-    for (int lineIndex = 1; getline(haystack, line); ++lineIndex)
+    for (size_t lineIndex = 1; getline(input, line); ++lineIndex)
     {
-        auto pos = line.find(needle);
+        size_t pos = line.find(word);
         if (pos != string::npos)
         {
             found = true;
             cout << lineIndex << endl;
         }
     }
+
     return found;
 }
 
 int main(int argc, char* argv[])
 {
-    if (argc != 3)
+    auto args = ParseArgs(argc, argv);
+
+    if (!args)
     {
-        cout << "Invalid arguments count" << endl;
+        return 1;
+    }
+
+    string word = args->word;
+    if (!word.size())
+    {
+        cout << "There is no word to search for" << endl;
         return 1;
     }
 
     ifstream fileIn;
-    fileIn.open(argv[1]);
-
-    if (!fileIn.is_open())
+    if (!InitializeFile(fileIn, args->inputFileName))
     {
-        cout << "File not found" << endl;
+        cout << "Failed to open input file '" << args->inputFileName << "' for reading" << endl;
         return 1;
     }
 
-    if (!FindStingInStream(fileIn, argv[2]))
+    if (!FindStringInStreamAndPrint(fileIn, word))
     {
         cout << "Text not found" << endl;
         return 1;
     }
 
-    fileIn.clear();
+    return 0;
 }
